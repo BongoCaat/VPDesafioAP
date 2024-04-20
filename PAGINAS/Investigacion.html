@@ -21,6 +21,31 @@
             top: 0;
         }
 
+        main {
+            .card {
+                height: 50vh;
+                border: 2px solid;
+                border-radius: 6px;
+
+                .card-img-top {
+                    height: 80%;
+                    border-bottom: 2px solid;
+                    border-radius: 4px;
+                }
+
+                .card-body {
+
+                    .card-title {
+                        max-height: 3.5vh;
+                    }
+                }
+            }
+
+
+            h2 {
+                margin: 20px 10px;
+            }
+        }
         footer {
             display: flex;
             padding: 20px;
@@ -41,6 +66,10 @@
 
                 h2 {
 			      	text-decoration: 1px underline;
+                }
+
+                @media screen and (max-width: 767px) {
+                    word-spacing: 50vh;
 			    }
 		    }
 
@@ -80,26 +109,26 @@
 <body>
     <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="../index.html">Desafio 1 | AP</a>
+              <a class="navbar-brand" href="../index.html">Desafío 1 | AP</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../index.html">
+                    <a class="nav-link" href="../index.html">
                       Inicio
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="./Desafios.html">
-                      Desafios
+                      Desafíos
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="./Investigacion.html">
+                    <a class="nav-link active" aria-current="page" href="./Investigacion.html">
                         Investigación
                     </a>
                   </li>
@@ -109,6 +138,9 @@
     </header>
 
     <main>
+
+        <h2>Aquí podemos notar que las paginas son muy parecidas ya que se trata del Header y Footer de ambas paginas y como son paginas e-commerce tienen bastante similitud. Por ejemplo la barra de búsqueda, el carrito de compras, las redes sociales y entre otras cosas mas.</h2>
+
         <div class="row row-cols-1 row-cols-md-2 g-4">
             <div class="col">
                 <div class="card">

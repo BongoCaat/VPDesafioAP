@@ -25,7 +25,7 @@
             display: flex;
             padding: 20px;
             margin-top: 20px;
-			      border-top: 2px solid;
+			border-top: 2px solid;
 
             p {
                 display: flex;
@@ -39,9 +39,13 @@
 			      	border-radius: 4px;
 			      	padding: 5px;
 
-              h2 {
+                    h2 {
 			      		text-decoration: 1px underline;
 			      	}
+
+                    @media screen and (max-width: 767px) {
+                        word-spacing: 50vh;
+                    }
 			      }
 
 			      div.name {
@@ -55,24 +59,24 @@
 			      }
 
             ul {
-              font-size: 25px;
-              padding: 0;
-			        margin: 0;
-              list-style: none;
+                font-size: 25px;
+                padding: 0;
+			    margin: 0;
+                list-style: none;
 
-			        li {
-			          display: flex;
-			          padding: 5px;
-			          margin: 5px;
-			          border: 1px solid;
-			          border-radius: 2px;
+			    li {
+			      display: flex;
+			      padding: 5px;
+			      margin: 5px;
+			      border: 1px solid;
+			      border-radius: 2px;
 
-			          a {
-			          	flex: 1;
-			          	text-decoration: none;
-			          }
-			        }
+			      a {
+			      	flex: 1;
+			      	text-decoration: none;
 			      }
+			    }
+			}
           }
     </style>
 
@@ -80,22 +84,22 @@
 <body>
     <!-- Header -->
     <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+      <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">Desafio 1 | AP</a>
+            <a class="navbar-brand" href="../index.html">Desafío 1 | AP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="../index.html">
+                  <a class="nav-link" href="../index.html">
                     Inicio
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./Desafios.html">
-                    Desafios
+                  <a class="nav-link active" aria-current="page" href="./Desafios.html">
+                    Desafíos
                   </a>
                 </li>
                 <li class="nav-item">
@@ -137,7 +141,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="../JS/main.js"></script>
+    <script src="../JS/alert.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
