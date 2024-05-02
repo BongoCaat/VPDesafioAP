@@ -17,7 +17,7 @@ function comprar() {
         return;
     }
 
-    costoTotal = sumarProductos(precioUnitario, cantidadDeseada);
+    let costoTotal = sumarProductos(precioUnitario, cantidadDeseada);
 
     if (cantidadDeseada >= 5) {
         let descuento = costoTotal / 10;
