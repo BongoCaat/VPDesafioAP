@@ -30,6 +30,7 @@ for (let i = 0; i < listaProductos.length; i++) {
 
 function comprar(elegido) {
     const productoElegido = elegido;
+    carritoList.scrollIntoView();
 
     if (productoElegido === undefined || isNaN(productoElegido)) {
         alert("No ha seleccionado ningún producto. Vuelva a intentarlo.");
@@ -83,7 +84,7 @@ function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, pro
     } else if (cantidad > unidadesDisponible) {
         alert(`Solo se puede comprar hasta ${unidadesDisponible} unidades de este producto.`);
 
-        return comprar(productoElegido);
+        return comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido);
     } else if (cantidad <= unidadesDisponible) {
         listaProductos[productoElegido].unidadesDisponibles = (unidadesDisponible - cantidad);
         unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
@@ -92,7 +93,7 @@ function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, pro
             listaProductos[productoElegido].unidadesDisponibles = "No disponible";
             unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
 
-            buyButton[0].hidden = true;
+            nombreProduct[productoElegido].style.textDecoration = "3px line-through red";
 
             alert(`Has comprado todas las unidades de ${nombreProducto}.`);
         }
@@ -114,7 +115,6 @@ function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, pro
     alert("Gracias por su compra! Vuelva pronto!!");
     console.table(listaProductos);
 
-    // return { nombreProducto, precioProducto, unidadesDisponible, productoElegido };
     return;
 };
 
