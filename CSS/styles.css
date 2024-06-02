@@ -14,3 +14,69 @@ div.container {
     justify-content: center;
     gap: 10px;
 }
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 2px solid;
+
+    p{
+        font-size: 28px;
+        margin: auto;
+        text-decoration: underline;
+    }
+
+    div.contactos {
+        border: 1px solid;
+        border-radius: 4px;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        h2 {
+            text-decoration: underline;
+        }
+
+        @media screen and (min-width: 768px) {
+            flex: 0.35;
+        }
+    }
+
+    div.name {
+        border: 1px solid;
+        border-radius: 4px;
+        padding: 5px;
+        margin-right: auto;
+        display: flex;
+        justify-items: center;
+        flex-direction: column;
+        flex: 1;
+
+        @media screen and (min-width: 768px) {
+            flex: 0.6;
+        }
+    }
+
+    ul {
+        font-size: 25px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+            display: flex;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid;
+            border-radius: 4px;
+
+            a {
+                flex: 1;
+                text-decoration: none;
+            }
+        }
+    }
+}

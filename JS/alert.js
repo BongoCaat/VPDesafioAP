@@ -1,3 +1,11 @@
+const nombreProduct = document.getElementsByClassName("nombreProducto");
+const nombreProductoU = document.getElementById("nombreProductoUnidad");
+const precioProduct = document.getElementById("precioProducto");
+const unidadesProduct = document.getElementById("unidadesProducto");
+const categoriaProduct = document.getElementById("categoriaProducto");
+const carritoList = document.getElementById("carrito");
+const buyButton = document.getElementsByClassName("btn btn-dark");
+
 function sumarProductos(precioUnitario, cantidadDeseada) {
     let totalGastado = precioUnitario * cantidadDeseada;
 
@@ -17,73 +25,85 @@ console.table(listaProductos);
 console.log("Lista de productos:");
 for (let i = 0; i < listaProductos.length; i++) {
     console.log(`Nombre del producto: ${listaProductos[i].nombre} (${i}) | Categoría: ${listaProductos[i].categoria}`);
-}
+    nombreProduct[i].innerHTML = listaProductos[i].nombre;
+};
 
-function comprar() {
-    if (listaProductos.length === 0) {
-        alert("No hay mas productos en la lista. Vuelva mas tarde!");
+function comprar(elegido) {
+    const productoElegido = elegido;
 
-        return;
-    };
-
-    let productoElegido = parseInt(prompt(`Elija un producto de la lista: ${listaProductos.map((p, i) => `${p.nombre} (${i})`).join(", ")}`));
-    if (productoElegido > listaProductos.length - 1 || productoElegido < 0) {
-        alert(`Ingrese un producto válido. (Debe ser un número entre 0 y ${listaProductos.length - 1})`);
-
-        return comprar();
-    } else if(isNaN(productoElegido)) {
-        alert("Gracias por visitarnos. Vuelva pronto!! :)");
+    if (productoElegido === undefined || isNaN(productoElegido)) {
+        alert("No ha seleccionado ningún producto. Vuelva a intentarlo.");
 
         return;
     };
 
-    let nombreProducto = listaProductos[productoElegido].nombre;
-    let precioProducto = listaProductos[productoElegido].precio;
-    let unidadesDisponible = listaProductos[productoElegido].unidadesDisponibles;
-    let categoriaProducto = listaProductos[productoElegido].categoria;
+    const nombreProducto = listaProductos[productoElegido].nombre;
+    nombreProductoU.innerHTML = `Nombre del producto: ${nombreProducto}`;
 
-    console.log(`Producto: ${nombreProducto}, Precio: $${precioProducto}, Cantidad: ${unidadesDisponible}, Categoría: ${categoriaProducto}`);
+    const precioProducto = listaProductos[productoElegido].precio;
+    precioProduct.innerHTML = `Precio del producto: $${precioProducto}`;
 
-    if (nombreProducto) {
-        if (confirm(`Has seleccionado el producto ${nombreProducto} de la categoría ${categoriaProducto} - Precio: $${precioProducto} - Disponible: ${unidadesDisponible} unidades. ¿Deseas comprarlo?`)) {
-            console.log(`Has seleccionado el producto ${nombreProducto} (${productoElegido})`);
-        } else {
-            alert("Ha cancelado la compra. Vuelva pronto!");
+    const unidadesDisponible = listaProductos[productoElegido].unidadesDisponibles;
+    unidadesProduct.innerHTML = `Unidades del producto: ${unidadesDisponible}`;
 
-            return;
+    const categoriaProducto = listaProductos[productoElegido].categoria;
+    categoriaProduct.innerHTML = `Categoría del producto: ${categoriaProducto}`;
+
+    if (!isNaN(productoElegido)) {
+        carritoList.hidden = false;
+        buyButton[0].hidden = false;
+
+        if (unidadesDisponible === 0 || isNaN(unidadesDisponible)) {
+            buyButton[0].hidden = true;
+        } else if (unidadesDisponible > 0) {
+            buyButton[0].hidden = false;
         };
-    } else {
-        alert("No ha seleccionado ningún producto.");
 
-        return;
-    };
+        buyButton[0].onclick = () => {
+            comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido);
+        };
 
+        console.log(`Producto: ${nombreProducto}, Precio: $${precioProducto}, Cantidad: ${unidadesDisponible}, Categoría: ${categoriaProducto}`);
+    }
+
+    return { nombreProducto, precioProducto, unidadesDisponible, productoElegido };
+};
+
+function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido) {
     let cantidad = parseInt(prompt(`¿Cuántas unidades de ${nombreProducto} desea comprar? Unidades: ${unidadesDisponible} - Precio: $${precioProducto} (Si compra más de 5 unidades tiene un descuento de 10%)`));
 
-    if (cantidad === 0 || isNaN(cantidad) || cantidad < 0) {
+    if (cantidad === 0 || cantidad < 0) {
         alert("Ingrese una cantidad válida.");
+
+        return;
+    } else if (isNaN(cantidad)) {
+        alert("Gracias por su visita! Vuelva pronto!!");
 
         return;
     } else if (cantidad > unidadesDisponible) {
         alert(`Solo se puede comprar hasta ${unidadesDisponible} unidades de este producto.`);
 
-        return comprar();
+        return comprar(productoElegido);
     } else if (cantidad <= unidadesDisponible) {
         listaProductos[productoElegido].unidadesDisponibles = (unidadesDisponible - cantidad);
+        unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
 
         if (cantidad === unidadesDisponible || unidadesDisponible === 0) {
-            listaProductos.splice(productoElegido, 1);
-            alert(`Has comprado todas las unidades de ${nombreProducto}, se ha eliminado este producto de la lista.`);
+            listaProductos[productoElegido].unidadesDisponibles = "No disponible";
+            unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
 
-            console.table(listaProductos);
+            buyButton[0].hidden = true;
+
+            alert(`Has comprado todas las unidades de ${nombreProducto}.`);
         }
+        buyButton[0].hidden = true;
     };
 
     let costoTotal = sumarProductos(precioProducto, cantidad);
 
     if (cantidad > 5) {
-        let descuento = costoTotal / 10;
-        let costoTotalConDescuento = costoTotal - descuento;
+        let descuento = (costoTotal / 10);
+        let costoTotalConDescuento = (costoTotal - descuento);
 
         alert(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotalConDescuento} pesos con un descuento de 10%`);
         console.log(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotalConDescuento} pesos con un descuento de 10% (-$${descuento}).`);
@@ -91,8 +111,10 @@ function comprar() {
         alert(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
         console.log(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
     };
+    alert("Gracias por su compra! Vuelva pronto!!");
+    console.table(listaProductos);
 
+    // return { nombreProducto, precioProducto, unidadesDisponible, productoElegido };
     return;
 };
-
 

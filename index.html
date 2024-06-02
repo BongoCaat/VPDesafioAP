@@ -37,87 +37,38 @@
 
             .card-body {
                 text-decoration: 1px solid underline;
+                display: flex;
+                flex-direction: column;
+                border-top: 1px solid;
+                border-radius: 4px;
 
                 .card-title {
-                    font-size: 24px;
+                    font-size: 32px;
+                    align-content: center;
+                    flex: 0.5;
                 }
 
                 .card-text {
-                    font-size: 20px;
+                    font-size: 24px;
+                    align-content: center;
+                    flex: 2;
+                    padding: 16px;
                 }
             }
 
             .card.text-center {
                 border: 1px solid;
                 width: 50vh;
-                height: 90vh;
+                height: -webkit-fill-available;
                 margin: auto;
             }
             img.card-img-top {
-                width: auto;
+                width: -webkit-fill-available;
                 height: 50vh;
                 margin-left: auto;
                 margin-right: auto;
             }
 		}
-
-        footer {
-            display: flex;
-            padding: 20px;
-            margin-top: 20px;
-			border-top: 2px solid;
-
-            p {
-                display: flex;
-                align-items: center;
-                font-size: 30px;
-                margin: 0;
-            }
-
-			div.contactos {
-				border: 1px solid;
-				border-radius: 4px;
-				padding: 5px;
-
-				h2 {
-					text-decoration: 1px underline;
-				}
-
-                @media screen and (max-width: 767px) {
-                    word-spacing: 50vh;
-                }
-			}
-
-			div.name {
-				border: 1px solid;
-				border-radius: 4px;
-				padding: 5px;
-				margin-right: auto;
-				display: inline-grid;
-				align-content: space-evenly;
-				justify-items: center;
-			}
-
-            ul {
-                font-size: 25px;
-                padding: 0;
-			    margin: 0;
-                list-style: none;
-
-			    li {
-			    	display: flex;
-			    	padding: 5px;
-			    	margin: 5px;
-			    	border: 1px solid;
-			    	border-radius: 2px;
-
-			    	a {
-			    		flex: 1;
-			    		text-decoration: none;
-			    	}
-			    }
-			}
-        }
     </style>
 
 </head>

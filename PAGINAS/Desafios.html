@@ -31,68 +31,61 @@
         main {
             margin: 50px;
 
+            div {
+                display: flex;
+                margin: auto;
+                flex-wrap: wrap;
+            }
+
             .btn {
                 margin: 0 auto;
                 font-size: 35px;
             }
-        }
 
-        footer {
-            display: flex;
-            padding: 20px;
-            margin-top: 20px;
-			border-top: 2px solid;
-
-            p {
+            ol, ul {
+                padding: 0;
                 display: flex;
-                align-items: center;
-                font-size: 30px;
-                margin: 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                flex-direction: column;
+                list-style: none;
             }
 
-			div.contactos {
-			    border: 1px solid;
-			    border-radius: 4px;
-			  	padding: 5px;
+            ol li {
+                display: flex;
+                background-color: aqua;
+                margin: 5px auto;
+                padding: 8px;
+                border: 2px solid black;
+                border-radius: 6px;
 
-                h2 {
-			      	text-decoration: 1px underline;
+            }
+
+            section {
+                display: flex;
+                flex-direction: column;
+                border: 2px solid black;
+                border-radius: 4px;
+                padding: 12px;
+                margin: 10px auto;
+
+                h1 {
+                    font-size: 35px;
+                    border-bottom: 4px solid;
                 }
 
-                @media screen and (max-width: 767px) {
-                    word-spacing: 50vh;
-			    }
-		    }
+                li {
+                    font-size: 26px;
+                    display: flex;
+                    width: -webkit-fill-available;
+                    justify-content: center;
+                }
 
-			div.name {
-				border: 1px solid;
-				border-radius: 4px;
-				padding: 5px;
-				margin-right: auto;
-				display: inline-grid;
-				align-content: space-evenly;
-				justify-items: center;
-			}
-
-            ul {
-                font-size: 25px;
-                padding: 0;
-			    margin: 0;
-                list-style: none;
-
-			    li {
-			        display: flex;
-			        padding: 5px;
-			        margin: 5px;
-			        border: 1px solid;
-			        border-radius: 2px;
-
-			        a {
-			            flex: 1;
-			            text-decoration: none;
-                    }
-			    }
-			}
+                ul li {
+                    margin: 5px auto;
+                    text-decoration: 1px underline;
+                }
+            }
         }
     </style>
 
@@ -131,7 +124,30 @@
     <!-- Main -->
     <main>
 
-        <button type="button" class="btn btn-dark" onclick="comprar()">Comprar</button>
+        <div>
+            <section>
+                <h1>Lista de productos</h1>
+                <ol id="productos">
+                    <li class="nombreProducto" onclick="comprar(0)">Producto 1</li>
+                    <li class="nombreProducto" onclick="comprar(1)">Producto 2</li>
+                    <li class="nombreProducto" onclick="comprar(2)">Producto 3</li>
+                    <li class="nombreProducto" onclick="comprar(3)">Producto 4</li>
+                    <li class="nombreProducto" onclick="comprar(4)">Producto 5</li>
+                    <li class="nombreProducto" onclick="comprar(5)">Producto 6</li>
+                </ol>
+            </section>
+
+            <section id="carrito" hidden>
+                <h1>Carrito de compras</h1>
+                <ul>
+                    <li id="nombreProductoUnidad"></li>
+                    <li id="precioProducto"></li>
+                    <li id="unidadesProducto"></li>
+                    <li id="categoriaProducto"></li>
+                    <button type="button" class="btn btn-dark" onclick="comprarCantidad()">Comprar</button>
+                </ul>
+            </section>
+        </div>
 
     </main>
 
