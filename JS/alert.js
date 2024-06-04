@@ -1,10 +1,9 @@
 const nombreProduct = document.getElementsByClassName("nombreProducto");
-const nombreProductoU = document.getElementById("nombreProductoUnidad");
 const precioProduct = document.getElementById("precioProducto");
 const unidadesProduct = document.getElementById("unidadesProducto");
 const categoriaProduct = document.getElementById("categoriaProducto");
 const carritoList = document.getElementById("carrito");
-const buyButton = document.getElementsByClassName("btn btn-dark");
+const buyButton = document.getElementById("buyButton");
 
 function sumarProductos(precioUnitario, cantidadDeseada) {
     let totalGastado = precioUnitario * cantidadDeseada;
@@ -15,7 +14,7 @@ function sumarProductos(precioUnitario, cantidadDeseada) {
 const listaProductos = [
     { nombre: "Arroz con Leche", precio: 1050, unidadesDisponibles: 50, categoria: "Dulces" },
     { nombre: "Cafe", precio: 3500, unidadesDisponibles: 28, categoria: "Alimentos" },
-    { nombre: "Leche", precio: 900, unidadesDisponibles: 100, categoria: "Alimentos" },
+    { nombre: "Leche", precio: 1000, unidadesDisponibles: 100, categoria: "Alimentos" },
     { nombre: "Azucar", precio: 770, unidadesDisponibles: 48, categoria: "Alimentos" },
     { nombre: "Chocolate", precio: 1200, unidadesDisponibles: 30, categoria: "Dulces" },
     { nombre: "Dulce de Leche", precio: 1150, unidadesDisponibles: 42, categoria: "Dulces" },
@@ -30,7 +29,6 @@ for (let i = 0; i < listaProductos.length; i++) {
 
 function comprar(elegido) {
     const productoElegido = elegido;
-    carritoList.scrollIntoView();
 
     if (productoElegido === undefined || isNaN(productoElegido)) {
         alert("No ha seleccionado ningún producto. Vuelva a intentarlo.");
@@ -39,7 +37,7 @@ function comprar(elegido) {
     };
 
     const nombreProducto = listaProductos[productoElegido].nombre;
-    nombreProductoU.innerHTML = `Nombre del producto: ${nombreProducto}`;
+    nombreProduct[nombreProduct.length - 1].innerHTML = `Nombre del producto: ${nombreProducto}`;
 
     const precioProducto = listaProductos[productoElegido].precio;
     precioProduct.innerHTML = `Precio del producto: $${precioProducto}`;
@@ -52,15 +50,17 @@ function comprar(elegido) {
 
     if (!isNaN(productoElegido)) {
         carritoList.hidden = false;
-        buyButton[0].hidden = false;
+        buyButton.hidden = false;
+
+        carritoList.scrollIntoView();
 
         if (unidadesDisponible === 0 || isNaN(unidadesDisponible)) {
-            buyButton[0].hidden = true;
+            buyButton.hidden = true;
         } else if (unidadesDisponible > 0) {
-            buyButton[0].hidden = false;
+            buyButton.hidden = false;
         };
 
-        buyButton[0].onclick = () => {
+        buyButton.onclick = () => {
             comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido);
         };
 
@@ -97,7 +97,8 @@ function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, pro
 
             alert(`Has comprado todas las unidades de ${nombreProducto}.`);
         }
-        buyButton[0].hidden = true;
+
+        buyButton.hidden = true;
     };
 
     let costoTotal = sumarProductos(precioProducto, cantidad);
@@ -112,6 +113,7 @@ function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, pro
         alert(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
         console.log(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
     };
+
     alert("Gracias por su compra! Vuelva pronto!!");
     console.table(listaProductos);
 
