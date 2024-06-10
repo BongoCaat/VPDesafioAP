@@ -132,19 +132,12 @@
         <div>
             <section>
                 <h1>Lista de productos</h1>
-                <ol id="productos">
-                    <li class="nombreProducto" onclick="comprar(0)">Producto 1</li>
-                    <li class="nombreProducto" onclick="comprar(1)">Producto 2</li>
-                    <li class="nombreProducto" onclick="comprar(2)">Producto 3</li>
-                    <li class="nombreProducto" onclick="comprar(3)">Producto 4</li>
-                    <li class="nombreProducto" onclick="comprar(4)">Producto 5</li>
-                    <li class="nombreProducto" onclick="comprar(5)">Producto 6</li>
-                </ol>
+                <ol id="productos"></ol>
             </section>
 
             <section id="carrito" hidden>
-                <h1>Carrito de compras</h1>
                 <button type="button" class="btn-close" onclick="carrito.hidden = true"></button>
+                <h1>Carrito de compras</h1>
                 <ul>
                     <li class="nombreProducto">Nombre del Producto</li>
                     <li id="precioProducto">Precio del Producto</li>

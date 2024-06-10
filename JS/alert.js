@@ -2,7 +2,8 @@ const nombreProduct = document.getElementsByClassName("nombreProducto");
 const precioProduct = document.getElementById("precioProducto");
 const unidadesProduct = document.getElementById("unidadesProducto");
 const categoriaProduct = document.getElementById("categoriaProducto");
-const carritoList = document.getElementById("carrito");
+const carritoList = document.querySelector("#carrito");
+const productosList = document.querySelector("#productos");
 const buyButton = document.getElementById("buyButton");
 
 function sumarProductos(precioUnitario, cantidadDeseada) {
@@ -21,10 +22,22 @@ const listaProductos = [
 ];
 console.table(listaProductos);
 
+for (const producto of listaProductos) {
+    const li = document.createElement("li");
+
+    li.className = "nombreProducto";
+    li.innerHTML = `${producto.nombre}`;
+
+    li.onclick = function() {
+        comprar(listaProductos.indexOf(producto));
+    };
+
+    productosList.appendChild(li);
+};
+
 console.log("Lista de productos:");
 for (let i = 0; i < listaProductos.length; i++) {
     console.log(`Nombre del producto: ${listaProductos[i].nombre} (${i}) | Categoría: ${listaProductos[i].categoria}`);
-    nombreProduct[i].innerHTML = listaProductos[i].nombre;
 };
 
 function comprar(elegido) {
