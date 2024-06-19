@@ -1,135 +1,129 @@
-const nombreProduct = document.getElementsByClassName("nombreProducto");
-const precioProduct = document.getElementById("precioProducto");
-const unidadesProduct = document.getElementById("unidadesProducto");
-const categoriaProduct = document.getElementById("categoriaProducto");
 const carritoList = document.querySelector("#carrito");
 const productosList = document.querySelector("#productos");
-const buyButton = document.getElementById("buyButton");
-
-function sumarProductos(precioUnitario, cantidadDeseada) {
-    let totalGastado = precioUnitario * cantidadDeseada;
-
-    return totalGastado;
-};
+const clearCart = document.querySelector("#clearCart");
+const closeCart = document.querySelector("#closeCart");
+const cartButton = document.querySelector("#cartButton");
+const cartItems = document.querySelector("#cartItems");
+const carrito = document.querySelector("#carrito");
+const totalPrice = document.querySelector("#totalPrice");
+const productoCart = document.getElementsByClassName("producto");
+const productoShop = document.getElementsByClassName("productoNombre");
 
 const listaProductos = [
-    { nombre: "Arroz con Leche", precio: 1050, unidadesDisponibles: 50, categoria: "Dulces" },
-    { nombre: "Cafe", precio: 3500, unidadesDisponibles: 28, categoria: "Alimentos" },
-    { nombre: "Leche", precio: 1000, unidadesDisponibles: 100, categoria: "Alimentos" },
-    { nombre: "Azucar", precio: 770, unidadesDisponibles: 48, categoria: "Alimentos" },
-    { nombre: "Chocolate", precio: 1200, unidadesDisponibles: 30, categoria: "Dulces" },
-    { nombre: "Dulce de Leche", precio: 1150, unidadesDisponibles: 42, categoria: "Dulces" },
+    { nombre: "Arroz con Leche", precio: 1050, unidadesDisponibles: 20, categoria: "Dulces", isOnCart: false, unidadesOnCart: 0 },
+    { nombre: "Cafe", precio: 3500, unidadesDisponibles: 18, categoria: "Alimentos", isOnCart: false, unidadesOnCart: 0 },
+    { nombre: "Leche", precio: 1000, unidadesDisponibles: 50, categoria: "Alimentos", isOnCart: false, unidadesOnCart: 0 },
+    { nombre: "Azucar", precio: 950, unidadesDisponibles: 20, categoria: "Alimentos", isOnCart: false, unidadesOnCart: 0 },
+    { nombre: "Chocolate", precio: 1200, unidadesDisponibles: 8, categoria: "Dulces", isOnCart: false, unidadesOnCart: 0 },
+    { nombre: "Dulce de Leche", precio: 1150, unidadesDisponibles: 12, categoria: "Dulces", isOnCart: false, unidadesOnCart: 0 }
 ];
 console.table(listaProductos);
+
+console.log("Lista de productos:");
+for (let i = 0; i < listaProductos.length; i++) {
+    console.log(`Producto: ${listaProductos[i].nombre} (${i}) | Precio: $${listaProductos[i].precio} | Categoría: ${listaProductos[i].categoria}`);
+    console.log("\n");
+};
 
 for (const producto of listaProductos) {
     const li = document.createElement("li");
 
-    li.className = "nombreProducto";
-    li.innerHTML = `${producto.nombre}`;
+    li.innerHTML = `${producto.nombre} | $${producto.precio}`;
+    li.style.textDecoration = "none";
+    li.className = "productoNombre";
 
     li.onclick = function() {
-        comprar(listaProductos.indexOf(producto));
+        addCart(listaProductos.indexOf(producto));
     };
 
     productosList.appendChild(li);
 };
 
-console.log("Lista de productos:");
-for (let i = 0; i < listaProductos.length; i++) {
-    console.log(`Nombre del producto: ${listaProductos[i].nombre} (${i}) | Categoría: ${listaProductos[i].categoria}`);
-};
+listaProductos.forEach(producto => {
+    const li = document.createElement("li");
 
-function comprar(elegido) {
-    const productoElegido = elegido;
+    li.innerHTML = `${producto.nombre} x${producto.unidadesOnCart}`;
+    li.className = "producto";
+    li.hidden = true;
 
-    if (productoElegido === undefined || isNaN(productoElegido)) {
-        alert("No ha seleccionado ningún producto. Vuelva a intentarlo.");
+    cartItems.appendChild(li);
+});
 
-        return;
-    };
-
-    const nombreProducto = listaProductos[productoElegido].nombre;
-    nombreProduct[nombreProduct.length - 1].innerHTML = `Nombre del producto: ${nombreProducto}`;
-
-    const precioProducto = listaProductos[productoElegido].precio;
-    precioProduct.innerHTML = `Precio del producto: $${precioProducto}`;
-
-    const unidadesDisponible = listaProductos[productoElegido].unidadesDisponibles;
-    unidadesProduct.innerHTML = `Unidades del producto: ${unidadesDisponible}`;
-
-    const categoriaProducto = listaProductos[productoElegido].categoria;
-    categoriaProduct.innerHTML = `Categoría del producto: ${categoriaProducto}`;
-
-    if (!isNaN(productoElegido)) {
+cartButton.addEventListener("click", function() {
+    if (carritoList.hidden === true) {
         carritoList.hidden = false;
-        buyButton.hidden = false;
-
-        carritoList.scrollIntoView();
-
-        if (unidadesDisponible === 0 || isNaN(unidadesDisponible)) {
-            buyButton.hidden = true;
-        } else if (unidadesDisponible > 0) {
-            buyButton.hidden = false;
-        };
-
-        buyButton.onclick = () => {
-            comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido);
-        };
-
-        console.log(`Producto: ${nombreProducto}, Precio: $${precioProducto}, Cantidad: ${unidadesDisponible}, Categoría: ${categoriaProducto}`);
-    }
-
-    return { nombreProducto, precioProducto, unidadesDisponible, productoElegido };
-};
-
-function comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido) {
-    let cantidad = parseInt(prompt(`¿Cuántas unidades de ${nombreProducto} desea comprar? Unidades: ${unidadesDisponible} - Precio: $${precioProducto} (Si compra más de 5 unidades tiene un descuento de 10%)`));
-
-    if (cantidad === 0 || cantidad < 0) {
-        alert("Ingrese una cantidad válida.");
-
-        return;
-    } else if (isNaN(cantidad)) {
-        alert("Gracias por su visita! Vuelva pronto!!");
-
-        return;
-    } else if (cantidad > unidadesDisponible) {
-        alert(`Solo se puede comprar hasta ${unidadesDisponible} unidades de este producto.`);
-
-        return comprarCantidad(nombreProducto, unidadesDisponible, precioProducto, productoElegido);
-    } else if (cantidad <= unidadesDisponible) {
-        listaProductos[productoElegido].unidadesDisponibles = (unidadesDisponible - cantidad);
-        unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
-
-        if (cantidad === unidadesDisponible || unidadesDisponible === 0) {
-            listaProductos[productoElegido].unidadesDisponibles = "No disponible";
-            unidadesProduct.innerHTML = `Unidades del producto: ${listaProductos[productoElegido].unidadesDisponibles}`;
-
-            nombreProduct[productoElegido].style.textDecoration = "3px line-through red";
-
-            alert(`Has comprado todas las unidades de ${nombreProducto}.`);
-        }
-
-        buyButton.hidden = true;
-    };
-
-    let costoTotal = sumarProductos(precioProducto, cantidad);
-
-    if (cantidad > 5) {
-        let descuento = (costoTotal / 10);
-        let costoTotalConDescuento = (costoTotal - descuento);
-
-        alert(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotalConDescuento} pesos con un descuento de 10%`);
-        console.log(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotalConDescuento} pesos con un descuento de 10% (-$${descuento}).`);
     } else {
-        alert(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
-        console.log(`El costo total de la compra del producto ${nombreProducto} es de $${costoTotal} pesos.`);
+        carritoList.hidden = true;
+    }
+    return;
+});
+
+clearCart.addEventListener("click", function() {
+    vaciarCarrito();
+    return;
+});
+
+closeCart.addEventListener("click", function() {
+    carritoList.hidden = true;
+    return;
+});
+
+function sumarTotal() {
+    let total = 0;
+
+    for (const producto of listaProductos) {
+        if (producto && producto.isOnCart) {
+            total += (producto.unidadesOnCart * producto.precio);
+        };
     };
 
-    alert("Gracias por su compra! Vuelva pronto!!");
-    console.table(listaProductos);
+    totalPrice.innerHTML = `Precio Total: $${total}`;
 
     return;
 };
 
+function addCart(elegido) {
+    const productoElegido = listaProductos[elegido];
+
+    productoCart[elegido].hidden = false;
+    carritoList.hidden = false;
+
+    if (productoElegido.isOnCart) {
+        if (productoElegido.unidadesDisponibles <= productoElegido.unidadesOnCart) {
+            productoShop[elegido].style.textDecoration = "3px red line-through";
+
+            return;
+        }
+
+        productoElegido.unidadesOnCart += 1;
+        productoCart[elegido].innerHTML = `${productoElegido.nombre} x${productoElegido.unidadesOnCart}`;
+
+    } else {
+        productoElegido.isOnCart = true;
+        productoElegido.unidadesOnCart = 1;
+        productoCart[elegido].innerHTML = `${productoElegido.nombre} x${productoElegido.unidadesOnCart}`;
+    }
+
+    sumarTotal();
+
+    return;
+};
+
+function vaciarCarrito() {
+    carritoList.hidden = true;
+    totalPrice.innerHTML = "";
+
+    listaProductos.forEach(producto => {
+        producto.isOnCart = false;
+        producto.unidadesOnCart = 0;
+    });
+
+    for (let i = 0; i < productoCart.length; i++) {
+        productoCart[i].hidden = true;
+        productoShop[i].style.textDecoration = "none";
+
+        productoCart[i].innerHTML = `${listaProductos[i].nombre} x${listaProductos[i].unidadesOnCart}`;
+    }
+
+    return;
+};
